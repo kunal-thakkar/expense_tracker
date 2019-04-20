@@ -1,0 +1,19 @@
+{
+    "mail_account": {
+        "host": "imap.googlemail.com",
+        "port": 993,
+        "protocol": "imaps",
+        "username": "kunalmthakkar@gmail.com",
+        "password": "syufnvvwcgaqeyow",
+        "folders": [
+            "Citi Bank",
+            "Citi Bank/Transaction Alert",
+            "HDFC Bank",
+            "ICICI Bank Statements",
+            "ICICI Credit Card",
+            "INBOX",
+            "SBI Card",
+            "Standard Chartered"
+        ]
+    }
+}
