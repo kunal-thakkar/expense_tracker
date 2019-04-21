@@ -5,6 +5,7 @@ var configuration = {
     paths: {
         src: {
             html: './public/**/*.html',
+            imgs: './public/images/**/*.*',
             css: [
                 'public/css/jquery.dataTables.min.css',
                 'public/css/responsive.dataTables.min.css',
@@ -57,6 +58,11 @@ gulp.task('html', function() {
         .pipe(gulp.dest(configuration.paths.dist));
 });
 
+gulp.task('copy-imgs', function(){
+    return gulp.src(configuration.paths.src.imgs)
+        .pipe(gulp.dest(configuration.paths.dist + '/images'));
+});
+
 gulp.task('minify-js', function() {
 	return gulp.src(configuration.paths.src.js)
     .pipe(concat('app.js'))
@@ -69,8 +75,9 @@ gulp.task('minify-css', function () {
        .pipe(gulp.dest(configuration.paths.dist + '/css'))
 });
 
-gulp.task('default', gulp.series('html', 'minify-js', 'minify-css', function () {
-	gulp.watch(configuration.paths.src.js, ()=>'minify-js');
-	gulp.watch(configuration.paths.src.html, ()=>'html');
-    gulp.watch(configuration.paths.src.css, ()=>'minify-css');
+gulp.task('default', gulp.series('html', 'minify-js', 'minify-css', 'copy-imgs', function () {
+    gulp.watch(configuration.paths.src.js, gulp.series('minify-js'));
+    gulp.watch(configuration.paths.src.imgs, gulp.series('copy-imgs'));
+	gulp.watch(configuration.paths.src.html, gulp.series('html'));
+    gulp.watch(configuration.paths.src.css, gulp.series('minify-css'));
 }));
