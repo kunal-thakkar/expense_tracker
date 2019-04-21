@@ -1,23 +1,13 @@
-app.factory('DashboardService', ['$http', '$q', function ($http, $q) {
+app.factory('DashboardService', ['$http', '$q', 'AppUtil', function ($http, $q, AppUtil) {
     return {
         getDashboardData: function(query){
-            var deferred = $q.defer();
-            $http.post("/getTransactions", query)
-                .then(
-                    function (response) {
-                        deferred.resolve(response.data);
-                    },
-                    function(errResponse){
-                        console.error('Error: ', errResponse);
-                        deferred.reject(errResponse);
-                    }
-                );
-            return deferred.promise;
+            return AppUtil.deferHttpPost("/getTransactions", query);
         }
     };
 }]);
-app.controller('DashboardCtrl', ['$scope', 'DashboardService', 'AppUtil', function ($scope, DashboardService, AppUtil) {
+app.controller('DashboardCtrl', ['$scope', 'DashboardService', 'UserService', 'AppUtil', function ($scope, DashboardService, UserService, AppUtil) {
     'use strict';
+    UserService.validateSession();
     var self = this;
     self.query = {
         from: AppUtil.addDays(new Date(), -60),
@@ -51,11 +41,9 @@ app.controller('DashboardCtrl', ['$scope', 'DashboardService', 'AppUtil', functi
                 });
                 self.income = income;
                 self.expense = expense;
-                self.transactions = d;
                 self.graphdata.series = Object.values(chartData);
                 self.categoryPie.series = Object.values(categoryPieSeries);
                 self.tabledata.data = d;
-                console.log(self.dataTable);
             },
             function(e){
                 console.log(e);
@@ -63,39 +51,18 @@ app.controller('DashboardCtrl', ['$scope', 'DashboardService', 'AppUtil', functi
         );
         if(self.dataTable) self.dataTable.ajax.reload();
     }
+    var pieOptions = {
+        series: { pie: { show: true, label: { show: false } } },
+        legend: { show: false },
+        grid: { clickable: true }
+    };
     self.graphdata = {
         series: [],
-        options: {
-            series: {
-                pie: {
-                    show: true,
-                    label: {
-                        show: false
-                    },
-                }
-            },
-            legend: {
-                show: false
-            },
-            grid: { clickable: true }
-        }
+        options: pieOptions
     };
     self.categoryPie = {
         series: [],
-        options: {
-            series: {
-                pie: {
-                    show: true,
-                    label: {
-                        show: false
-                    },
-                }
-            },
-            legend: {
-                show: false
-            },
-            grid: { clickable: true }
-        }
+        options: pieOptions
     };
     self.tabledata = {
         ajax: {
@@ -105,6 +72,10 @@ app.controller('DashboardCtrl', ['$scope', 'DashboardService', 'AppUtil', functi
             data: {
                 from:self.query.from.getTime(),
                 to: self.query.to.getTime()
+            },
+            beforeSend: function (request) {
+                if(UserService.getToken())
+                    request.setRequestHeader("Authorization", UserService.getToken());
             }
         },
         responsive: true,

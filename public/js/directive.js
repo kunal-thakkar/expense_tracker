@@ -23,6 +23,7 @@ app.directive('myTable', function () {
         restrict: 'E, A, C',
         link: function (scope, element, attrs) {
             var dataTable = $(element).DataTable(scope.options);
+            $.fn.dataTable.ext.errMode = 'throw';
             scope.$parent.ctrl.dataTable = dataTable;
             element.on('click', 'tr', function(e){
                 if ( $(this).hasClass('selected') ) {

@@ -1,12 +1,19 @@
-var app = angular.module('app', ['ngRoute']);
-app.factory('AuthInterceptor', [function () {
+var app = angular.module('app', ['ngRoute', 'ngCookies']);
+app.factory('AuthInterceptor', ['$rootScope', '$q', '$window', function ($rootScope, $q, $window) {
     return {
         // Send the Authorization header with each request
         'request': function (config) {
             config.headers = config.headers || {};
-            var encodedString = btoa("bill:abc123");
-            config.headers.Authorization = 'Basic ' + encodedString;
+            if ($window.sessionStorage.getItem("token")) {
+                config.headers.Authorization = $window.sessionStorage.getItem("token");
+            }
             return config;
+        },
+        responseError: function (rejection) {
+            if (rejection.status == 404) {
+                $window.location = '/';
+            }
+            return $q.reject(rejection);
         }
     };
 }]);

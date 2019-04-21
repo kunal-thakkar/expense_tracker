@@ -21,6 +21,9 @@ public class User {
 	@DatabaseField
 	private String role;
     
+	@DatabaseField(unique = true, index = true)
+	private String token;
+	
     User() {
     	// all persisted classes must define a no-arg constructor with at least package visibility
     }
@@ -71,6 +74,14 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

@@ -56,7 +56,8 @@ app.factory('TransactionService', ['$http', '$q', function ($http, $q) {
         }
     };
 }]);
-app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'AppUtil', function($scope, TransactionService, AppUtil){
+app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'UserService', 'AppUtil', function($scope, TransactionService, UserService, AppUtil){
+    UserService.validateSession();
     var self = this;
     self.paymentModes = ['HDFC Cr. Card', 'CITI Cr. Card', 'Cash'];
     self.categories = ['Food','Medical','Travelling','Other'];
@@ -127,9 +128,13 @@ app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'AppUtil', fu
     };
     self.options = {
         ajax: {
-            url:"/dtTransactions",
+            url:"/getTransactions",
             dataSrc: "",
-            type: "post"
+            type: "post",
+            beforeSend: function (request) {
+                if(UserService.getToken())
+                    request.setRequestHeader("Authorization", UserService.getToken());
+            }
         },
         responsive: true,
         columns: [

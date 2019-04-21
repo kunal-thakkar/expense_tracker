@@ -1,6 +1,7 @@
 package expense.tracker.controller;
 
 import java.util.Map;
+import java.util.UUID;
 
 import org.rapidoid.annotation.Controller;
 import org.rapidoid.annotation.POST;
@@ -22,9 +23,12 @@ public class LoginCtrl {
 		if(!req.posted("password", "").equals(u.getPassword())) {
 			return U.map("Error", "Incorrect Password!!");
 		}
+		u.setToken(UUID.randomUUID().toString());
+		Main.db.saveRecord(u, User.class);		
 		return U.map("FirstName", u.getFirstname(),
 				"FullName", String.format("%s %s", u.getFirstname(), u.getLastname()),
-				"Role", u.getRole());
+				"Role", u.getRole(),
+				"token", u.getToken());
     }
 	
 }
