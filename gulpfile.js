@@ -40,10 +40,12 @@ var configuration = {
                 'public/js/jquery.dataTables.min.js',
                 'public/js/dataTables.responsive.min.js',
                 'public/js/angular.min.js',
+                'public/js/angular-cookies.js',
                 'public/js/angular-route.js',
                 'public/js/main.js',
                 'public/js/util.js',
                 'public/js/directive.js',
+                'public/js/login.js',
                 'public/js/dashboard.js',
                 'public/js/transaction.js'		
             ]
