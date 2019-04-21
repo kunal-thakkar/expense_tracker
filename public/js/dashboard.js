@@ -32,11 +32,16 @@ app.controller('DashboardCtrl', ['$scope', 'DashboardService', 'AppUtil', functi
                 var income = 0;
                 var expense = 0;
                 var chartData = {};
+                var categoryPieSeries = {};
                 d.forEach(o=>{
                     if(!chartData.hasOwnProperty(o.paymentMode)){
                         chartData[o.paymentMode] = {"label": o.paymentMode, data: 0, color: AppUtil.getColor()};
                     }
+                    if(!categoryPieSeries.hasOwnProperty(o.category)){
+                        categoryPieSeries[o.category] = {"label": o.category, data: 0, color: AppUtil.getColor()};
+                    }
                     chartData[o.paymentMode].data += o.amount;
+                    categoryPieSeries[o.category].data += o.amount;
                     if(o.transactionType == "dr"){
                         expense += o.amount;
                     }
@@ -48,6 +53,7 @@ app.controller('DashboardCtrl', ['$scope', 'DashboardService', 'AppUtil', functi
                 self.expense = expense;
                 self.transactions = d;
                 self.graphdata.series = Object.values(chartData);
+                self.categoryPie.series = Object.values(categoryPieSeries);
                 self.tabledata.data = d;
                 console.log(self.dataTable);
             },
@@ -58,6 +64,23 @@ app.controller('DashboardCtrl', ['$scope', 'DashboardService', 'AppUtil', functi
         if(self.dataTable) self.dataTable.ajax.reload();
     }
     self.graphdata = {
+        series: [],
+        options: {
+            series: {
+                pie: {
+                    show: true,
+                    label: {
+                        show: false
+                    },
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: { clickable: true }
+        }
+    };
+    self.categoryPie = {
         series: [],
         options: {
             series: {
@@ -88,7 +111,7 @@ app.controller('DashboardCtrl', ['$scope', 'DashboardService', 'AppUtil', functi
         processing: true,
         columns: [
             { data: "dateTime", title:"Date", defaultContent: "", render: function(data, type, row){
-                return moment(data).format("YYYY-MM-DD");
+                return AppUtil.formatDate(new Date(data));
             }},
             { data: "description", title: "Description", defaultContent: "" },
             { data: "category", title: "Category", defaultContent: "" },

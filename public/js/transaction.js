@@ -62,7 +62,7 @@ app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'AppUtil', fu
     self.categories = ['Food','Medical','Travelling','Other'];
     self.transaction = {};
     self.filter = {
-        from: AppUtil.addDays(new Date(), -10),
+        from: AppUtil.addDays(new Date(), -60),
         to: new Date()
     };
     self.dataTable = false;
@@ -134,7 +134,7 @@ app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'AppUtil', fu
         responsive: true,
         columns: [
             { data: "dateTime", title:"Date", defaultContent: "", render: function(data, type, row){
-                return moment(data).format("YYYY-MM-DD");
+                return AppUtil.formatDate(new Date(data));
             }},
             { data: "description", title: "Description", defaultContent: "" },
             { data: "category", title: "Category", defaultContent: "" },

@@ -237,19 +237,6 @@ main {
 	color: darkorchid;
 }
 
-.charts {
-	box-sizing: border-box;
-	padding: 10px;
-	margin: 10px;
-    /*min-height: 500px;*/
-	border: 1px solid #ccc;
-}
-
-.chart {
-    width: calc(100vw - 40px);
-    height: calc(100vw - 40px);
-}
-
 .view {
     padding-top: 45px;
 }
@@ -374,23 +361,23 @@ label {
 }
 
 .dataTables_wrapper .dataTables_filter input {
-    width: calc(100% - 60px);
+    width: calc(100% - 65px);
 }
 
 div.container { 
     max-width: 1200px 
 }
 
-.dataTables_filter {
+.transaction-container .dataTables_filter {
     float: left !important;
-    /* width: calc(100% - 110px); */
-}
-    
+    text-align: unset !important;
+    width: calc(100% - 80px);
+}    
 
 .action {
     position: absolute;
-    right: 0px;
-    top: 115px;
+    right: 12px;
+    top: 128px;
     z-index: 1;
 }
 
@@ -399,18 +386,38 @@ div.container {
     background-color: #fff;
     z-index: 10;
     width: 100%;
-    height: -webkit-fill-available;
+    height: calc(100% - 45px);
     overflow: auto;
+}
+
+.charts {
+	box-sizing: border-box;
+	padding: 10px;
+	margin: 10px;
+    /*min-height: 500px;*/
+	border: 1px solid #ccc;
+}
+
+.chart {
+    width: calc(100vw - 65px);
+    height: calc(100vw - 65px);
 }
 
 .legend {
     /*padding-left: calc(50vw + -35px);*/
     font-size: inherit;
-    margin: 10px;
+    margin: 1px;
 }
 
 .legend-container {
     padding-top: 10px;
+}
+
+.pie {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
 }
 
 @media (min-width: 767px) {
@@ -453,8 +460,8 @@ div.container {
 	}
 	
     .chart {
-		width: calc(50vw - 100px);
-		height: calc(50vw - 100px);
+		width: calc(50vw - 150px);
+		height: calc(50vw - 150px);
 		float: left;
 	}
     
@@ -492,7 +499,8 @@ div.container {
     
     .dataTables_wrapper .dataTables_filter {
         text-align: left;
-        padding-left: 10px;
+        /* padding-left: 10px;
+        padding-right: -10px; */
     }
     .flex-container {
         display: flex;
@@ -502,14 +510,23 @@ div.container {
         padding: unset;
         padding-left: 10px;
     }
+    .transactionForm {
+        height: auto;
+        width: 570px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
+    input[type="radio"] {
+        margin-top: 12px;
+    }
 }
 
 @media (min-width: 1023px) {
 	.filter_panel {
         display: block;
     }
-    .dataTables_wrapper {
+    .transaction-container .dataTables_wrapper {
         width: calc(100% - 304px);
         margin: 10px;
     }
@@ -519,22 +536,19 @@ div.container {
     .filter-icon {
         display: none;
     }
-    .transactionForm {
-        width: 700px;
-        height: 440px;
-    }
     .pie {
-        width:50%;
+        width: calc(50% - 22px);
         height: calc(25vw - 100px);
         float: left;
     }
     .chart {
-		width: calc(25vw - 100px);
-		height: calc(25vw - 100px);
+		width: calc(25vw - 140px);
+		height: calc(25vw - 140px);
 		float: left;
     }
     
     .charts {
+        padding: unset;
         height: calc(25vw - 75px);
     }
 
