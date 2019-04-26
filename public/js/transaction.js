@@ -57,7 +57,7 @@ app.factory('TransactionService', ['$http', '$q', function ($http, $q) {
     };
 }]);
 app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'UserService', 'AppUtil', function($scope, TransactionService, UserService, AppUtil){
-    UserService.validateSession();
+//    UserService.validateSession();
     var self = this;
     self.paymentModes = ['HDFC Cr. Card', 'CITI Cr. Card', 'Cash'];
     self.categories = ['Food','Medical','Travelling','Other'];

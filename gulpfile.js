@@ -12,7 +12,7 @@ var configuration = {
                 'public/css/styles.css'
             ],
             js: [
-                'public/js/jquery-3.3.1.min.js',
+                'public/js/jquery/jquery-3.3.1.js',
                 'public/js/flot/jquery.canvaswrapper.js',
                 'public/js/flot/jquery.colorhelpers.js',
                 'public/js/flot/jquery.flot.js',
@@ -37,15 +37,16 @@ var configuration = {
                 'public/js/flot/jquery.flot.legend.js',
                 'public/js/flot/jquery.flot.pie.js',
                 // 'public/js/moment.js',
-                'public/js/jquery.dataTables.min.js',
-                'public/js/dataTables.responsive.min.js',
-                'public/js/angular.min.js',
-                'public/js/angular-cookies.js',
-                'public/js/angular-route.js',
+                'public/js/datatables/jquery.dataTables.min.js',
+                'public/js/datatables/dataTables.responsive.min.js',
+                'public/js/angularjs/angular.min.js',
+                'public/js/angularjs/angular-cookies.js',
+                'public/js/angularjs/angular-route.js',
                 'public/js/main.js',
                 'public/js/util.js',
                 'public/js/directive.js',
                 'public/js/login.js',
+                'public/js/header.js',
                 'public/js/dashboard.js',
                 'public/js/transaction.js'		
             ]

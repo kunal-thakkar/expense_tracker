@@ -37,8 +37,6 @@ app.directive('myTable', function () {
                 }
                 //scope.$apply()
             });
-            console.log(element)
-            console.log(attrs);
             scope.$watch('options.data', function(newData){
                 var data = newData || null;
                 if (data) {

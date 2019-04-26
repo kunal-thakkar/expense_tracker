@@ -421,30 +421,6 @@ div.container {
 }
 
 @media (min-width: 767px) {
-	.header .logo {
-		padding: 12px;
-	}
-	
-	.header li {
-		float: left;
-	}
-	.header li a {
-		padding: 15px 20px;
-		border-left: 1px solid orange;
-	}
-	
-	.header li:last-child a {
-		border-right: 1px solid orange;
-	}
-	
-	.header .menu {
-		clear: none;
-		float: left;
-		max-height: none;
-	}
-	.header .menu-icon {
-		display: none;
-	}
 	
 	.flex-container {
 		flex-direction: row;
@@ -523,7 +499,43 @@ div.container {
 }
 
 @media (min-width: 1023px) {
-	.filter_panel {
+    nav {
+        width: 100%;
+    }
+
+	.header .logo {
+		padding: 12px;
+	}
+	
+	.header li {
+		float: left;
+	}
+	.header li a {
+		padding: 15px 20px;
+		border-left: 1px solid orange;
+	}
+	
+	.header li:last-child a {
+		border-right: 1px solid orange;
+	}
+	
+	.header .menu {
+		clear: none;
+		float: left;
+        max-height: none;
+        width: calc(100% - 180px);
+	}
+
+    .header .menu-icon {
+		display: none;
+    }
+    
+    li.logout {
+        float: right;
+        border: none;
+    }
+
+    .filter_panel {
         display: block;
     }
     .transaction-container .dataTables_wrapper {

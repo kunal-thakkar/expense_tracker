@@ -24,9 +24,45 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
             templateUrl: "login.html"
         })
         .when("/dashboard", {
-            templateUrl: "dashboard.html"
+            templateUrl: "dashboard.html",
+            authorize: true
         })
         .when("/transactions", {
-            templateUrl: "transactions.html"
+            templateUrl: "transactions.html",
+            authorize: true
         });
+}]);
+app.factory('UserService', ['AppUtil', '$window', '$location', function (AppUtil, $window, $location) {
+    return {
+        authUser: function(user){
+            return AppUtil.deferHttpPost("/login", user).then(
+                function(d){
+                    $window.sessionStorage.setItem("token", user.token);
+                    return d;
+                }
+            );
+        },
+        getToken: function(){
+            var t = $window.sessionStorage.getItem("token") 
+            return t ? t : false;
+        },
+        validateSession: function(){
+            if($window.sessionStorage.getItem("token") == null){
+                $window.location = '/';
+                return;
+            }
+        },
+        logoutUser: function(){
+            $window.sessionStorage.removeItem("token");
+            $location.path("/")
+        }
+    };
+}]);
+app.run(["$rootScope", "$location", "UserService", function ($rootScope, $location, UserService) {
+    $rootScope.$on("$routeChangeStart", function (evt, to, from) {
+        if (to.authorize === true && UserService.getToken() === false) {
+            alert("Session  timeout!")
+            $location.path("/")
+        }
+    });
 }]);

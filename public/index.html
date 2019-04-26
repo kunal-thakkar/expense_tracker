@@ -10,17 +10,18 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body ng-app="app">
-    <header class="header">
+    <header class="header" ng-controller="HeaderController as ctrl">
         <nav>
             <input class="menu-btn" type="checkbox" id="menu-btn" />
             <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
             <a href="/" class="logo">Expense Analyser</a>
-            <ul class="menu">
-                <li><a href="#!dashboard">Dashboard</a></li>
-                <li><a href="#!transactions">Transactions</a></li>
+            <ul class="menu" ng-show="ctrl.isUserAuthenticated();">
+                <li><a ng-href="#!dashboard">Dashboard</a></li>
+                <li><a ng-href="#!transactions">Transactions</a></li>
+                <li class="logout"><a href="#" ng-click="ctrl.logout()" style="border: none" >Logout</a></li>
             </ul>
         </nav>
-        <i class="material-icons filter-icon" onclick="$('#filter_panel').css('display', 'block');">filter_list</i>
+        <i class="material-icons filter-icon"  ng-show="ctrl.isTransactionPage()" onclick="$('#filter_panel').css('display', 'block');">filter_list</i>
     </header>
     <div class="view" ng-view></div>
 </body>

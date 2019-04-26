@@ -5,9 +5,8 @@ app.factory('DashboardService', ['$http', '$q', 'AppUtil', function ($http, $q, 
         }
     };
 }]);
-app.controller('DashboardCtrl', ['$scope', 'DashboardService', 'UserService', 'AppUtil', function ($scope, DashboardService, UserService, AppUtil) {
+app.controller('DashboardCtrl', ['DashboardService', 'UserService', 'AppUtil', function (DashboardService, UserService, AppUtil) {
     'use strict';
-    UserService.validateSession();
     var self = this;
     self.query = {
         from: AppUtil.addDays(new Date(), -60),
