@@ -145,6 +145,10 @@ main {
 	flex-direction: column;
 }
 
+.flex-container input.responsiveSubmit {
+    float: unset;
+}
+
 .form {
 	top: 30%;
 	margin: 0 10px;
