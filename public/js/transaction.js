@@ -30,7 +30,7 @@ app.factory('TransactionService', ['$http', '$q', function ($http, $q) {
         },
         filterTransaction: function(filter){
             var deferred = $q.defer();
-            $http.post("/filterTransaction/", filter).then(
+            $http.post("/filterTransactions", filter).then(
                 function(response){
                     deferred.resolve(response.data);
                 },
@@ -109,7 +109,10 @@ app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'UserService'
         );
     };
     self.applyFilter = function(){
-        TransactionService.filterTransaction(self.filter).then(
+        var filter = Object.assign({}, self.filter);
+        filter.from = self.filter.from.getTime();
+        filter.to = self.filter.to.getTime();
+        TransactionService.filterTransaction(filter).then(
             function(d){
                 self.options.data = d;
                 var x = window.matchMedia("(min-width: 1023px)")

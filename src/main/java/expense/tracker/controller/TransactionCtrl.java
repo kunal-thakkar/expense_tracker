@@ -50,4 +50,54 @@ public class TransactionCtrl {
 		}, Transaction.class);
 		return list;
 	}
+	
+	@POST("/filterTransactions")
+	public List<Transaction> filterTransactions(Req req, Resp resp) throws Exception {
+		if(req.header("authorization", "").equals("")) {
+			resp.code(404);
+			return null;
+		}
+		List<Transaction> list = Main.db.getRecords(new SQLite.CustomQueryBuilder() {
+			final Map<String, Object> posted = req.posted();
+			@Override
+			public <T> void build(QueryBuilder<T, String> builder) throws SQLException {
+				Where<T, String> where = builder.where();
+				int count = 0;
+				if(posted.containsKey("from")) {
+					where.ge("dateTime", posted.get("from"));
+					count++;
+				}
+				if(posted.containsKey("to")) {
+					where.le("dateTime", posted.get("to"));
+					count++;
+				}
+				if(posted.containsKey("category") && !posted.get("category").equals("")) {
+					where.eq("category", posted.get("category"));
+					count++;
+				}
+				if(posted.containsKey("paymentMode") && !posted.get("paymentMode").equals("")) {
+					where.eq("paymentMode", posted.get("paymentMode"));
+					count++;
+				}
+				if(posted.containsKey("amountMin"))	{
+					where.ge("amount", posted.get("amountMin"));
+					count++;
+				}
+				if(posted.containsKey("amountMax")) {
+					where.le("amount", posted.get("amountMax"));
+					count++;
+				}
+				if(posted.containsKey("transactionType")) {
+					where.eq("transactionType", posted.get("transactionType"));
+					count++;
+				}
+				if(posted.containsKey("description") && !posted.get("description").equals("")) {
+					where.like("description", "%"+posted.get("description")+"%");
+					count++;
+				}
+				where.and(count);
+			}
+		}, Transaction.class);
+		return list;
+	}
 }
