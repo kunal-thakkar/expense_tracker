@@ -71,6 +71,9 @@ app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'UserService'
     self.form = { visible: false };
     self.filterForm = { visible: false };
     self.addClick = function(){
+        self.dataTable.$('tr.selected').removeClass('selected');
+        self.selectedRow = false;
+        self.transaction = {};
         self.form.visible = true;
     };
     self.editClick = function(){
@@ -83,7 +86,8 @@ app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'UserService'
     self.deleteTransaction = function(){
         var p = confirm("Are you sure you want to delete?");
         if(p){
-            TransactionService.deleteTransaction(self.transaction).then(
+            console.log(self.selectedRow)
+            TransactionService.deleteTransaction(self.selectedRow.data()).then(
                 function(d){
                     self.selectedRow.remove().draw(false);
                     self.selectedRow = false;
@@ -100,7 +104,12 @@ app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'UserService'
                 self.form.visible = false;
                 var d = Object.assign({}, self.transaction);
                 d.dateTime = d.dateTime.getTime();
-                self.selectedRow.data(d).draw('page');
+                if(self.selectedRow){
+                    self.selectedRow.data(d).draw('page');
+                }
+                else {
+                    self.dataTable.row.add(d).draw('page');
+                }
                 self.transaction = {};
             },
             function(e){
@@ -130,7 +139,7 @@ app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'UserService'
         self.form.visible = false;
     };
     self.options = {
-        ajax: {
+        /*ajax: {
             url:"/getTransactions",
             dataSrc: "",
             type: "post",
@@ -138,7 +147,7 @@ app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'UserService'
                 if(UserService.getToken())
                     request.setRequestHeader("Authorization", UserService.getToken());
             }
-        },
+        },*/
         responsive: true,
         columns: [
             { data: "dateTime", title:"Date", defaultContent: "", render: function(data, type, row){
@@ -153,5 +162,5 @@ app.controller('TransactionCtrl', ['$scope', 'TransactionService', 'UserService'
         ],
         data: []
     };
-    //self.filterTransaction();
+    self.applyFilter();
 }])

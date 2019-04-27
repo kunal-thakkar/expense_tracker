@@ -62,4 +62,11 @@ public class DB {
 		sqlite.saveRecord(record, t);
 		sqlitePool.returnObject(sqlite);
 	}
+
+	public <T> int deleteRecord(T record, Class<T> t) throws Exception {
+		SQLite sqlite = sqlitePool.borrowObject();
+		int i = sqlite.deleteRecord(record, t);
+		sqlitePool.returnObject(sqlite);
+		return i;
+	}
 }

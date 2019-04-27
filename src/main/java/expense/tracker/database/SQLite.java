@@ -81,5 +81,9 @@ public class SQLite {
 		dao.createOrUpdate(record);
 	}
 
+	public <T> int deleteRecord(T record, Class<T> t) throws SQLException {
+		Dao<T, Object> dao = DaoManager.createDao(connectionSource, t);
+		return dao.delete(record);
+	}
 	
 }

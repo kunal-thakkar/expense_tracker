@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.rapidoid.annotation.Controller;
+import org.rapidoid.annotation.DELETE;
 import org.rapidoid.annotation.POST;
 import org.rapidoid.http.Req;
 import org.rapidoid.http.Resp;
@@ -99,5 +100,17 @@ public class TransactionCtrl {
 			}
 		}, Transaction.class);
 		return list;
+	}
+	
+	@DELETE("/transaction/{id}")
+	public Map<String, Object> deleteTransaction(int id) throws Exception {
+		Transaction t = new Transaction();
+		t.setTransactionId(id);
+		if(Main.db.deleteRecord(t, Transaction.class) == 1) {
+			return U.map("Status", "OK");
+		}
+		else {
+			return U.map("Error", "Record Not Found!");
+		}
 	}
 }
