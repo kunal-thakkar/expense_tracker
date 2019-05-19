@@ -23,6 +23,11 @@
         </nav>
         <i class="material-icons filter-icon"  ng-show="ctrl.isTransactionPage()" onclick="$('#filter_panel').css('display', 'block');">filter_list</i>
     </header>
+    <script>
+	    $(document).on("click", "nav > ul > li > a", function( event ){
+		   $('#menu-btn').prop('checked', false);
+		});
+    </script>
     <div class="view" ng-view></div>
 </body>
 </html>
