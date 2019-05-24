@@ -17,7 +17,6 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.reflections.Reflections;
 
@@ -73,7 +72,7 @@ public class MessageHandlerImpl implements MessageHandler {
 						Files.createDirectories(path.getParent());
 						Files.copy((InputStream) o, path, StandardCopyOption.REPLACE_EXISTING);
 						List<Transaction> transactions = stmtParser.parseStatement(
-							PDDocument.load(path.toFile(), stmtParser.getPassword(sub))
+							path.toFile(), stmtParser.getPassword(sub)
 						);
 						Main.db.saveRecords(transactions, Transaction.class);
 						stmt.setFilePath(path.toString());

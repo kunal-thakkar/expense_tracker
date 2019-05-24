@@ -1,5 +1,6 @@
 package expense.tracker.parser.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +44,11 @@ public class IciciCrStatementParser implements StatementParser {
 		return "ICICI";
 	}
 
-	public List<Transaction> parseStatement(PDDocument pdf) throws InvalidPasswordException, IOException{
+	public List<Transaction> parseStatement(File file, String password) throws InvalidPasswordException, IOException{
 		List<Transaction> result = new ArrayList<Transaction>();
         PDFTextStripper reader = new PDFTextStripper();
-        String pageText = reader.getText(pdf);
+        PDDocument doc = PDDocument.load(file, password);
+        String pageText = reader.getText(doc);
         String[] lines = pageText.split(Utils.newLineSeparator), linePart, datePart;
         String desc, line, tempLine = "", transactionType, paymentMode = "ICICI Cr. Card";
         int len;
@@ -109,7 +111,7 @@ public class IciciCrStatementParser implements StatementParser {
 				}
 			}
 		}
-        pdf.close();
+        doc.close();
         return result;
 	}
 
