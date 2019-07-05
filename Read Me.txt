@@ -1,2 +1,36 @@
 To build jar run the below command
 	mvn clean compile assembly:single
+	
+Added command line option to run
+	* To monitor mailbox
+	java -jar monitor
+	
+	* To fetch statement from mail box
+	java -jar fetch YYYY-MM-DD
+	
+	* To start app server
+	java -jar run
+	
+	* To run all command i.e. fetch history, keep watching on new mail and run web app the sequence should be like below
+	java -jar fetch YYYY-MM-DD run monitor
+	
+Added option to use MySQL as database
+	As there is error with OrmLite with MySQL index have removed index from table schema hence need to add it mannually
+	* To use SQLite in config set database as
+	{
+		"database": {
+			"server":"sqlite",
+			"database":"expense_tracker.db"
+		}
+	}
+	
+	* To use MySQL in config set "database" as
+	{
+		"database": {
+			"server":"mysql",
+			"host":"localhost",
+			"database":"expense_tracker",
+			"username":"root",
+			"password":""
+		}
+	}

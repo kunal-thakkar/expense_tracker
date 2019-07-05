@@ -16,12 +16,12 @@ import expense.tracker.dao.Statement;
 import expense.tracker.dao.Transaction;
 import expense.tracker.dao.User;
 
-public class SQLite {
+public class OrmLite {
 	
 	private ConnectionSource connectionSource;
 	
-	public SQLite(String dbPath) throws SQLException {
-		connectionSource =  new JdbcConnectionSource(String.format("jdbc:sqlite:%s", dbPath));
+	public OrmLite(String url) throws SQLException {
+		connectionSource =  new JdbcConnectionSource(url);
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {

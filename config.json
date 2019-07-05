@@ -15,5 +15,9 @@
             "SBI Card",
             "Standard Chartered"
         ]
-    }
+    },
+	"database": {
+			"server":"sqlite",
+			"database":"expense_tracker.db"
+	}
 }

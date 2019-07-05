@@ -6,10 +6,10 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "users")
 public class User {
 
-	@DatabaseField(id = true, canBeNull = false, unique = true, index = true)
+	@DatabaseField(id = true, canBeNull = false)
 	private String username;
     
-    @DatabaseField(canBeNull = false, index = true)
+    @DatabaseField(canBeNull = false)
     private String password;
 
 	@DatabaseField
@@ -21,7 +21,7 @@ public class User {
 	@DatabaseField
 	private String role;
     
-	@DatabaseField(unique = true, index = true)
+	@DatabaseField
 	private String token;
 	
     User() {

@@ -17,7 +17,7 @@ import com.j256.ormlite.stmt.Where;
 
 import expense.tracker.Main;
 import expense.tracker.dao.Transaction;
-import expense.tracker.database.SQLite;
+import expense.tracker.database.OrmLite;
 
 @Controller
 public class TransactionCtrl {
@@ -39,7 +39,7 @@ public class TransactionCtrl {
 			resp.code(404);
 			return null;
 		}
-		List<Transaction> list = Main.db.getRecords(new SQLite.CustomQueryBuilder() {
+		List<Transaction> list = Main.db.getRecords(new OrmLite.CustomQueryBuilder() {
 			@Override
 			public <T> void build(QueryBuilder<T, String> builder) throws SQLException {
 				Calendar calFrom = Calendar.getInstance();
@@ -58,7 +58,7 @@ public class TransactionCtrl {
 			resp.code(404);
 			return null;
 		}
-		List<Transaction> list = Main.db.getRecords(new SQLite.CustomQueryBuilder() {
+		List<Transaction> list = Main.db.getRecords(new OrmLite.CustomQueryBuilder() {
 			final Map<String, Object> posted = req.posted();
 			@Override
 			public <T> void build(QueryBuilder<T, String> builder) throws SQLException {
