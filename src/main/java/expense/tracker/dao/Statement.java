@@ -6,6 +6,9 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class Statement {
 
+	@DatabaseField(generatedId = true, allowGeneratedIdInsert = true)
+	private Integer statementId;
+	
 	@DatabaseField
 	private long dateTime;
 	
