@@ -54,13 +54,12 @@ public class Main {
 		);
 		
 		for(int i = 0; i < args.length; i++) {
-			if(args[i].equals("fetch")) {
-				i++;
-				LocalDate date = LocalDate.parse(args[i]);
+			if(args[i].startsWith("fetch")) {
+				LocalDate date = LocalDate.parse(args[i].split("=")[1]);
 				client.fetchHistory(folders, java.sql.Date.valueOf(date), new MessageHandlerImpl());
 				System.out.println("Scanning completed");
 			}
-			if(args[i].equals("run")) {
+			if(args[i].equals("run=1")) {
 				App.bootstrap(args).auth();
 				System.out.println("Web-Application started");
 			}

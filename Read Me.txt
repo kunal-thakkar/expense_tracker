@@ -3,16 +3,16 @@ To build jar run the below command
 	
 Added command line option to run
 	* To monitor mailbox
-	java -jar monitor
+	java -jar monitor=1
 	
 	* To fetch statement from mail box
-	java -jar fetch YYYY-MM-DD
+	java -jar fetch=YYYY-MM-DD
 	
 	* To start app server
-	java -jar run
+	java -jar run=1
 	
 	* To run all command i.e. fetch history, keep watching on new mail and run web app the sequence should be like below
-	java -jar fetch YYYY-MM-DD run monitor
+	java -jar fetch=YYYY-MM-DD run=1 monitor=1
 	
 Added option to use MySQL as database
 	As there is error with OrmLite with MySQL index have removed index from table schema hence need to add it mannually

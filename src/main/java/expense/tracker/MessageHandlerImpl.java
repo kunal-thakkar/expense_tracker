@@ -88,9 +88,6 @@ public class MessageHandlerImpl implements MessageHandler {
 		for(StatementParser stmtParser : statementParsers) {
 			try {
 				if (stmtParser.isSubjectMatches(m.getSubject())) {
-					System.out.println("\n\nMatch Found\n\n");
-					System.out.println(stmtParser.getType());
-					System.out.println("\n\n\n");
 					writePart(m.getSubject(), stmtParser, m, m.getReceivedDate());
 					break;
 				}
